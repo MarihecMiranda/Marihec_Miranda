@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<head>
+    <title>Formulario Empleado</title> 
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+   
+    <style>
+
+      body{font-family: 'Vibur', cursive; 
+          font-family: 'Abel', sans-serif;
+          opacity: .95;
+          background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+          background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+          background-repeat: no-repeat; 
+          background-size: cover ; 
+          box-sizing: border-box}
+
+      form {
+         /* Centrar el formulario en la página */
+         margin: 2% auto;
+         width: 400px;
+         /* Esquema del formulario */
+         padding: 2%;
+         border: 1px solid rgb(32, 31, 31);
+         border-radius: 5px;
+         background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+         background-attachment: fixed;
+         background-repeat: no-repeat;
+         color: rgb(19, 17, 17);
+         min-height: 500px;
+         height: auto;
+         box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+      }
+   
+      ul {
+         list-style: none;
+         padding: 0;
+         margin: 0;
+      }
+
+      form li + li {
+         margin-top: 1em;
+      }
+
+      label {
+         /* Tamaño y alineación uniforme */
+         display: inline-block;
+         width: 90px;
+         text-align: right;
+      }
+
+      input, textarea{
+         border: 0;
+      }
+
+      .field{
+         border: solid 1px #999;
+         padding: 5px;
+      }
+
+      .field:focus{
+         border-color: blueviolet;
+      }
+
+      input[class="form-input"]{
+    
+        width: 350px;
+        height: 20px;
+  
+        margin-top: 2%;
+        padding: 15px;
+    
+        font-size: 16px;
+        font-family: 'Abel', sans-serif;
+        color: #5E6472;
+  
+        outline: none;
+        border: none;
+
+        border-radius: 0px 5px 5px 0px;
+        transition: 0.2s linear;
+
+        font-family: "Font Awesome 5 Free"; 
+        font-weight: 350;
+      }
+
+      input[class="center-content"]{
+    
+        width: 190px;
+        height: 50px;
+
+        margin-top: 2%;
+        padding: 15px;
+
+        font-size: 16px;
+        font-family: 'Abel', sans-serif;
+        background-color: #46ece4;
+        color: #5E6472;
+
+        outline: none;
+        border: none;
+
+        border-radius: 0px 5px 5px 0px;
+        transition: 0.2s linear;
+
+  }
+
+    </style>
+
+<form action="/login.php" id="formulario">
+   <h2><center>Formulario</center></h2>
+   <center>Ingrese los datos del Empleado</center>
+    <BR>
+        <INPUT NAME="codigo" TYPE=TEXT id="codigo" SIZE=32 placeholder=" Introduce el codigo" class="form-input" required>
+    <BR>
+        <INPUT NAME="nombre" TYPE=TEXT SIZE=32 id="nombre" placeholder=" Introduce el nombre" class="form-input" required>
+    <BR>
+        <INPUT NAME="apellido" TYPE=TEXT SIZE=32 id="apellido" placeholder=" Introduce el apellido" class="form-input" required>
+    <BR>
+        <INPUT NAME="edad" TYPE=NUMBER SIZE=32 id="edad" min="1" placeholder=" Introduce la edad" class="form-input" required>
+
+    <BR><input type="text" name="country" value=" Seleccione el Departamento" class="form-input" readonly><BR>
+        <BR><INPUT NAME="departamento" id= "Fin" TYPE=RADIO VALUE="Finanzas" required> Finanzas<BR> 
+        <INPUT NAME="departamento" id= "Rh" TYPE=RADIO VALUE="Recursos Humanos" required> Recursos Humanos<BR> 
+        <INPUT NAME="departamento" id= "Mark" TYPE=RADIO VALUE="Marketing" required> Marketing<BR> 
+        <INPUT NAME="departamento" id= "Log" TYPE=RADIO VALUE="Logística" required> Logística<BR> 
+        <INPUT NAME="departamento" id= "Dg" TYPE=RADIO VALUE="Dirección General" required> Dirección General
+    
+    <BR><input type="text" name="country" value="⚥ Seleccione el Genero" class="form-input" readonly><BR>
+        <BR><INPUT NAME="genero" id="M" TYPE=RADIO VALUE="Masculino" required> Masculino<BR> 
+        <INPUT NAME="genero" id="F" TYPE=RADIO VALUE="Femenino" required> Femenino
+
+    <BR><input type="text" name="country" value=" Seleccione Su respuesta" class="form-input" readonly><BR>
+        <BR><INPUT NAME="venezolano" id="Si" TYPE=RADIO VALUE="Si" required> Si<BR> 
+        <INPUT NAME="venezolano" id="No" TYPE=RADIO VALUE="No" required> No<BR>   
+    
+    <BR>
+        <INPUT TYPE="button" id="btn" VALUE="Enviar" class="center-content" onclick="validarFormulario()">
+        <INPUT TYPE="reset" id="btn1" NAME="btn" VALUE="Limpiar" class="center-content">
+    <BR>
+       
+</form>
+
+<script LANGUAGE="JavaScript">
+
+  var validarCodigo = function(evento){
+    if(document.getElementById('codigo').value.length == 0) {
+      swal('ERROR','No has escrito el codigo', 'error');
+      evento.preventDefault();
+    }
+    else{
+        var val = document.getElementById("codigo").value;
+        var tam = val.length;
+        if (tam>8){
+            document.getElementById("codigo").value='';
+            swal('ERROR','El código ingresado es muy largo (8 es el número de carácteres requeridos)','error');
+            evento.preventDefault();
+        }
+        else if (tam<8){
+            document.getElementById("codigo").value='';
+            swal('ERROR','El código ingresado es muy corto (8 es el número de carácteres requeridos)', 'error');
+            evento.preventDefault();
+        }
+        else if (tam=8 && ((/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(val) && !/^[0-9]+$/.test(val))|| 
+                (!/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(val) && /^[0-9]+$/.test(val)))){
+            document.getElementById("codigo").value='';
+            swal('ERROR','Se requiere que el código sea alfanumerico','error');
+            evento.preventDefault();
+        }
+    }
+  };
+
+  var validarNombre = function(evento){
+    if (document.getElementById('nombre').value.length == 0) {
+      swal('ERROR','No has escrito el nombre','error');
+      evento.preventDefault();
+    }
+    else{
+        var val = document.getElementById("nombre").value;
+        var tam = val.length;
+            if (tam>=20){
+                document.getElementById("nombre").value='';
+                swal('ERROR','El nombre ingresado es muy largo','error');
+                evento.preventDefault();
+            }
+            else if (tam<20 && !/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(val)){
+                document.getElementById("nombre").value='';
+                swal('ERROR','Ingrese solo letras en el nombre','error');
+                evento.preventDefault(); 
+            }
+            else if(tam<4){
+                document.getElementById("nombre").value='';
+                swal('ERROR','El nombre ingresado es muy corto','error');
+                evento.preventDefault(); 
+            }
+    }
+  };
+
+  var validarApellido = function(evento){
+    if (document.getElementById('apellido').value.length == 0) {
+      swal('ERROR','No has escrito el apellido','error');
+      evento.preventDefault();
+    }
+    else{
+        var val = document.getElementById("apellido").value;
+        var tam = val.length;
+            if (tam>=20){
+                document.getElementById("apellido").value='';
+                swal('ERROR','El apellido ingresado es muy largo', 'error');
+                evento.preventDefault();
+            }
+            else if (tam<20 && !/^([a-zA-ZñÑáéíóúÁÉÍÓÚ])+$/i.test(val)){
+                document.getElementById("apellido").value='';
+                swal('ERROR','Ingrese solo letras en el apellido','error');
+                evento.preventDefault();
+            }
+            else if(tam<4){
+                document.getElementById("apellido").value='';
+                swal('ERROR','El apellido ingresado es muy corto','error');
+                evento.preventDefault(); 
+            }
+    } 
+  };
+
+  var validarEdad = function(evento){
+    if (document.getElementById('edad').value.length == 0) {
+      swal('ERROR','No has escrito la edad','error');
+      evento.preventDefault();
+    }
+    else{
+        var val = document.getElementById("edad").value;
+        var tam = val.length;
+            for(i=0;i<tam;i++){
+                if (isNaN(val[i])){
+                    document.getElementById("edad").value='';
+                    swal('ERROR','Ingrese solo números en la edad', 'error');
+                    evento.preventDefault();
+                }
+                else{
+                    if (val <= 18){
+                       document.getElementById("edad").value=''; 
+                       swal('ERROR','El empleado debe ser mayor de edad','error');
+                       evento.preventDefault();
+                    }
+                    else if(val >60){
+                        document.getElementById("edad").value=''; 
+                        swal('ERROR','Edad no válida','error');
+                        evento.preventDefault();
+                    }
+                }
+            }
+    }
+  };
+
+  var validarDepartamento = function(evento){
+    if (!document.getElementById('Fin').checked &&
+        !document.getElementById('Rh').checked &&
+        !document.getElementById('Mark').checked &&
+        !document.getElementById('Log').checked &&
+        !document.getElementById('Dg').checked) {
+        swal('ERROR','No has seleccionado el departamento','error');
+        evento.preventDefault();
+    }
+  };
+
+  var validarGenero = function(evento){
+    if (!document.getElementById('M').checked &&
+        !document.getElementById('F').checked) {
+        swal('ERROR','No has seleccionado el genero', 'error');
+        evento.preventDefault();
+    }
+  };
+
+  var validarVenezolano = function(evento){
+    if (!document.getElementById('Si').checked &&
+        !document.getElementById('No').checked) {
+        swal('ERROR','No has seleccionado la respuesta','error');
+        evento.preventDefault();
+    }
+  };
+  
+  function validarFormulario(evento){
+
+    validarCodigo(evento);
+    validarNombre(evento);
+    validarApellido(evento);
+    validarEdad(evento);
+    validarDepartamento(evento);
+    validarGenero(evento);
+    validarVenezolano(evento);
+    swal('EXITO','El formulario fue enviado', 'success');
+    document.getElementById("formulario").reset();
+  }
+
+  document.getElementById('btn1').onclick = () => {
+  // Código a ejecutar al hacer click
+  document.getElementById("formulario").reset();
+    }
+
+</script>
+</body>
+</html>
